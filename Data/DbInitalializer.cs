@@ -9,7 +9,7 @@ namespace afh_be.Data
         public static void Initialize(MovieDBContext context)
         {
             // Check if the database has been seeded
-            if (context.Users.Any() || context.Movies.Any())
+            if (context.Users.Any() || context.Movies.Any() || context.Collections.Any() || context.Favourites.Any() || context.Followers.Any())
             {
                 return; // DB has been seeded
             }
@@ -81,6 +81,72 @@ namespace afh_be.Data
 
             context.Movies.AddRange(movies);
             context.SaveChanges();
+
+            // Seed Collections
+            var collections = new Collection[]
+            {
+                new Collection
+                {
+                    ID = 1,
+                    Name = "Top Action Movies",
+                    Description = "The best action movies of all time",
+                    CreatedAt = DateTime.Now.AddDays(-5),
+                    UserID = 1,
+                },
+                new Collection
+                {
+                    ID = 2,
+                    Name = "Critically-Acclaimed Movies",
+                    Description = "A list of movies that are critically-acclaimed",
+                    CreatedAt = DateTime.Now.AddDays(-10),
+                    UserID = 2,
+                }
+            };
+
+            context.Collections.AddRange(collections);
+            context.SaveChanges();
+
+            // Seed Favourites
+            var favourites = new Favourite[]
+            {
+                new Favourite
+                {
+                    ID = 1,
+                    UserID = 1,
+                    MovieID = 1,
+                    CreatedAt = DateTime.Now.AddDays(-15),
+                },
+                new Favourite
+                {
+                    ID = 2,
+                    UserID = 2,
+                    MovieID = 3,
+                    CreatedAt = DateTime.Now.AddDays(-5),
+                }
+            };
+
+            context.Favourites.AddRange(favourites);
+            context.SaveChanges();
+
+            // Seed Followers
+            // var followers = new Follower[]
+            // {
+            //     new Follower
+            //     {
+            //         ID = 1,
+            //         FollowerID = 1,
+            //         FollowedID = 2,
+            //     },
+            //     new Follower
+            //     {
+            //         ID = 2,
+            //         FollowerID = 2,
+            //         FollowedID = 1,
+            //     }
+            // };
+
+            // context.Followers.AddRange(followers);
+            // context.SaveChanges();
         }
     }
 }
