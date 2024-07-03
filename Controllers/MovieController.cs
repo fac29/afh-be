@@ -49,6 +49,18 @@ namespace afh_be.Controllers
             return;
         }
 
+         [HttpPatch("EditMovie{id}")]
+        public async Task EditMovie([FromBody] Movie Object)
+        {
+            var movie = await _context.Movies.FindAsync(Object);
+
+            if (MovieExists(Object.MovieID))
+            {
+                _context.Movies.Attach(movie);
+            }
+            
+        }
+
          [HttpDelete("Delete{id}")]
         public async Task DeleteMovie(int id)
         {
@@ -57,8 +69,13 @@ namespace afh_be.Controllers
             {
                 _context.Movies.Remove(movie);
                 await _context.SaveChangesAsync();
-            }
             return;
+            }
+        }
+
+        private bool MovieExists(int id)
+        {
+            return _context.Movies.Any(e => e.MovieID == id);
         }
     }
 }
