@@ -28,6 +28,6 @@ namespace afh_be.Models
         public int Rating { get; set; }
         public DateTime CreatedAt { get; set; }
         // many-to-many relationship with Collection
-        public ICollection<Collection> Collections { get; set; }
+        public ICollection<Collection> Collections { get; } = new List<Collection>();
     }
 }
