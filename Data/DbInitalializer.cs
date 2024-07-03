@@ -19,16 +19,16 @@ namespace afh_be.Data
             {
                 new User
                 {
-                    UserID = 1,
-                    Name = "John Doe",
+                    ID = 1,
+                    Username = "johndoe",
                     Email = "john@example.com",
                     HashedPassword = "hashed_password_1",
                     CreatedAt = DateTime.Now.AddDays(-30)
                 },
                 new User
                 {
-                    UserID = 2,
-                    Name = "Jane Smith",
+                    ID = 2,
+                    Username = "janesmith",
                     Email = "jane@example.com",
                     HashedPassword = "hashed_password_2",
                     CreatedAt = DateTime.Now.AddDays(-25)
@@ -43,7 +43,7 @@ namespace afh_be.Data
             {
                 new Movie
                 {
-                    MovieID = 1,
+                    ID = 1,
                     Title = "Inception",
                     Length = "2h 28min",
                     Description =
@@ -56,7 +56,7 @@ namespace afh_be.Data
                 },
                 new Movie
                 {
-                    MovieID = 2,
+                    ID = 2,
                     Title = "The Shawshank Redemption",
                     Length = "2h 22min",
                     Description =
@@ -69,7 +69,7 @@ namespace afh_be.Data
                 },
                 new Movie
                 {
-                    MovieID = 3,
+                    ID = 3,
                     Title = "Pulp Fiction",
                     Length = "2h 34min",
                     Description =
