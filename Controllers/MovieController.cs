@@ -37,6 +37,16 @@ namespace afh_be.Controllers
             return movie;
         }
 
-        // More endpoints here
+         [HttpDelete("Delete{id}")]
+        public async Task DeleteMovie(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie != null) 
+            {
+                _context.Movies.Remove(movie);
+                await _context.SaveChangesAsync();
+            }
+            return;
+        }
     }
 }
