@@ -52,7 +52,6 @@ namespace afh_be.Data
                     Image = "inception.jpg",
                     Rating = 9,
                     CreatedAt = DateTime.Now.AddDays(-20),
-                    UserID = 1
                 },
                 new Movie
                 {
@@ -65,7 +64,6 @@ namespace afh_be.Data
                     Image = "shawshank.jpg",
                     Rating = 10,
                     CreatedAt = DateTime.Now.AddDays(-15),
-                    UserID = 1
                 },
                 new Movie
                 {
@@ -78,7 +76,6 @@ namespace afh_be.Data
                     Image = "pulpfiction.jpg",
                     Rating = 8,
                     CreatedAt = DateTime.Now.AddDays(-10),
-                    UserID = 2
                 }
             };
 
