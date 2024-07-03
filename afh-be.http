@@ -1,0 +1,6 @@
+@afh_be_HostAddress = http://localhost:5089
+
+GET {{afh_be_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
