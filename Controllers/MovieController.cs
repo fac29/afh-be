@@ -37,6 +37,18 @@ namespace afh_be.Controllers
             return movie;
         }
 
+          [HttpPost("AddMovie")]
+        public async Task AddMovie([FromBody] Movie Object)
+        {
+            var movie = Object;
+            if (movie != null) 
+            {
+                _context.Movies.Add(movie);
+                await _context.SaveChangesAsync();
+            }
+            return;
+        }
+
          [HttpDelete("Delete{id}")]
         public async Task DeleteMovie(int id)
         {
