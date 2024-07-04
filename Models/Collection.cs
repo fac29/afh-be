@@ -24,8 +24,6 @@ namespace afh_be.Models
         public int UserID { get; set; }
 
         // many-to-many relationship with Movie
-        public ICollection<Movie> Movies { get; } = new List<Movie>();
-        // many-to-one relationship with User
-        public User User { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }
