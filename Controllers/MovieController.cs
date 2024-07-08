@@ -56,9 +56,8 @@ namespace afh_be.Controllers
 
             if (MovieExists(Object.MovieID))
             {
-                _context.Movies.Attach(movie);
+                _context.Movies.Attach(movie!);
             }
-            
         }
 
          [HttpDelete("Delete{id}")]
