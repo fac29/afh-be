@@ -50,15 +50,39 @@ namespace afh_be.Controllers
         }
 
          [HttpPatch("EditMovie{id}")]
-        public async Task EditMovie([FromBody] Movie Object)
+        public async Task<IActionResult> EditMovie([FromBody] Movie updatedMovie, int id)
         {
-            var movie = await _context.Movies.FindAsync(Object);
+           // Find the existing movie by id
+            var existingMovie = await _context.Movies.FindAsync(id);
 
-            if (MovieExists(Object.MovieID))
+            // Check if the movie exists
+            if (existingMovie == null)
             {
-                _context.Movies.Attach(movie!);
+                return NotFound(); // Return 404 Not Found if movie with id not found
+            }
+
+            // Update the existing movie properties with values from updatedMovie
+            existingMovie.Title = updatedMovie.Title;
+            existingMovie.Length = updatedMovie.Length;
+            existingMovie.Description = updatedMovie.Description;
+            existingMovie.Genre = updatedMovie.Genre;
+            existingMovie.Image = updatedMovie.Image;
+            existingMovie.Rating = updatedMovie.Rating;
+            // Do not update CreatedAt assuming it should remain the same
+
+            try
+            {
+                // Save changes to the database
+                await _context.SaveChangesAsync();
+                return NoContent(); // Return 204 No Content on successful update
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                // Handle concurrency exception (optional)
+                return StatusCode(500); // Return 500 Internal Server Error or handle differently
             }
         }
+        
 
          [HttpDelete("Delete{id}")]
         public async Task DeleteMovie(int id)
@@ -70,11 +94,6 @@ namespace afh_be.Controllers
                 await _context.SaveChangesAsync();
             return;
             }
-        }
-
-        private bool MovieExists(int id)
-        {
-            return _context.Movies.Any(e => e.MovieID == id);
         }
     }
 }
