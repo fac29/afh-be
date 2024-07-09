@@ -40,7 +40,6 @@ using (var scope = app.Services.CreateScope())
 
     var context = services.GetRequiredService<MovieDBContext>();
     context.Database.EnsureCreated();
-    DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();
