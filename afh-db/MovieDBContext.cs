@@ -1,4 +1,4 @@
-﻿using afh_be.Models;
+﻿using afh_db.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace afh_db
