@@ -1,5 +1,5 @@
-using afh_be.Data;
 using afh_be.Models;
+using afh_db;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,43 +10,52 @@ namespace afh_be.Controllers
     public class UsersController : ControllerBase
     {
         private readonly MovieDBContext _context;
+        private readonly IUserLibrary _userLibrary;
 
-        public UsersController(MovieDBContext context)
+        public UsersController(MovieDBContext context, IUserLibrary userLibrary)
         {
             _context = context;
+            _userLibrary = userLibrary;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        // Need a database method if we want to get all users - needs to be protected route. 
+
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        // {
+        //     return await _context.Users.ToListAsync();
+        // }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userLibrary.GetUser(id);
 
-            if (user == null)
+            // Return a new user, which keys and vlaues do we want to return?
+            var resultUser = new User
             {
-                return NotFound();
+                UserID = id,
+                Name = user.Name,
             }
 
-            return user;
+            return resultUser;
+        
         }
 
-        [HttpPost("AddUser")]
-        public async Task AddUser([FromBody] User Object)
-        {
-            var user = Object;
-            if (user != null)
-            {
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-            }
-            return;
-        }
+        // Meed to make a database method for AddUser
+        // [HttpPost("AddUser")]
+        // public async Task AddUser([FromBody] User Object)
+        // {
+        //     var user = Object;
+        //     if (user != null)
+        //     {
+        //         _context.Users.Add(user);
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     return;
+        // }
 
+        // Need a database method to edit user
         [HttpPatch("EditUser{id}")]
         public async Task<IActionResult> EditUser([FromBody] User updatedUser, int id)
         {
@@ -78,16 +87,10 @@ namespace afh_be.Controllers
             }
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task DeleteUSer(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
-            {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-                return;
-            }
+            await _userLibrary.DeleteUser(id);
         }
     }
 }
