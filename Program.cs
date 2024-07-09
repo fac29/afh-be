@@ -1,9 +1,11 @@
 using afh_be.Data;
+using afh_db;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IUserLibrary, UserLibrary>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<MovieDBContext>(options =>
