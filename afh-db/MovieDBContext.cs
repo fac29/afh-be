@@ -5,12 +5,23 @@ namespace afh_db
 {
     public class MovieDBContext : DbContext
     {
+        public MovieDBContext(){
+        }
         public MovieDBContext(DbContextOptions<MovieDBContext> options)
             : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+        public DbSet<CollectionMovie> CollectionMovies { get; set; }
 
+ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlite("Data Source=CU.db");
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -76,6 +87,44 @@ namespace afh_db
                         CreatedAt = DateTime.Now.AddDays(-10),
                     }
                 );
+
+                modelBuilder.Entity<Collection>().HasData(
+                new Collection
+                {
+                    CollectionID = 1,
+                    Name = "Best Movies",
+                    Description = "A list of the best ever movies.",
+                    UserID = 1,
+                    CreatedAt = DateTime.Now,
+                },
+                new Collection
+                {
+                    CollectionID = 2,
+                    Name = "Worst Movies",
+                    Description = "A list of the worst ever movies.",
+                    UserID = 1,
+                    CreatedAt = DateTime.Now,
+                }
+            );
+
+            modelBuilder.Entity<CollectionMovie>()
+                .HasKey(cm => new { cm.CollectionID, cm.MovieID });
+
+            modelBuilder.Entity<CollectionMovie>()
+                .HasOne(cm => cm.Collection)
+                .WithMany(c => c.CollectionMovies)
+                .HasForeignKey(cm => cm.CollectionID);
+
+            modelBuilder.Entity<CollectionMovie>()
+                .HasOne(cm => cm.Movie)
+                .WithMany(m => m.CollectionMovies)
+                .HasForeignKey(cm => cm.MovieID);
+
+            modelBuilder.Entity<CollectionMovie>().HasData(
+                new CollectionMovie { CollectionID = 1, MovieID = 1 },
+                new CollectionMovie { CollectionID = 1, MovieID = 2 },
+                new CollectionMovie { CollectionID = 2, MovieID = 3 }
+            );
         }
     }
 }

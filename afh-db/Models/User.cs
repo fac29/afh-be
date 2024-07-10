@@ -12,5 +12,7 @@ namespace afh_db.Models
         public string? Email { get; set; }
         public string? HashedPassword { get; set; }
         public DateTime CreatedAt { get; set; }
+        // Navigation property
+        public ICollection<Collection>? Collections { get; set; } = new List<Collection>();
     }
 }

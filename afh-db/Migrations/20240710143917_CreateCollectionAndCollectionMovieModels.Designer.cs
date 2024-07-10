@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using afh_db;
 
@@ -10,9 +11,11 @@ using afh_db;
 namespace afh_be.Migrations
 {
     [DbContext(typeof(MovieDBContext))]
-    partial class MovieDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240710143917_CreateCollectionAndCollectionMovieModels")]
+    partial class CreateCollectionAndCollectionMovieModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.6");
@@ -29,7 +32,7 @@ namespace afh_be.Migrations
 
                     b.HasIndex("MovieID");
 
-                    b.ToTable("CollectionMovies", (string)null);
+                    b.ToTable("CollectionMovies");
 
                     b.HasData(
                         new
@@ -71,7 +74,7 @@ namespace afh_be.Migrations
 
                     b.HasIndex("UserID");
 
-                    b.ToTable("Collections", (string)null);
+                    b.ToTable("Collections");
 
                     b.HasData(
                         new
@@ -121,7 +124,7 @@ namespace afh_be.Migrations
 
                     b.HasKey("MovieID");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
 
                     b.HasData(
                         new
@@ -179,7 +182,7 @@ namespace afh_be.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
