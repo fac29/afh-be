@@ -1,9 +1,12 @@
-using afh_be.Data;
+using afh_db;
+using afh_db.Libraries;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IUserLibrary, UserLibrary>();
+builder.Services.AddScoped<IMovieLibrary, MovieLibrary>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<MovieDBContext>(options =>

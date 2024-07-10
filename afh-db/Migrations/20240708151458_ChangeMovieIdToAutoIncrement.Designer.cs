@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using afh_be.Data;
+using afh_db;
 
 #nullable disable
 
 namespace afh_be.Migrations
 {
     [DbContext(typeof(MovieDBContext))]
-    [Migration("20240708141752_RemoveUserID")]
-    partial class RemoveUserID
+    [Migration("20240708151458_ChangeMovieIdToAutoIncrement")]
+    partial class ChangeMovieIdToAutoIncrement
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,7 @@ namespace afh_be.Migrations
             modelBuilder.Entity("afh_be.Models.Movie", b =>
                 {
                     b.Property<int>("MovieID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
@@ -54,7 +55,7 @@ namespace afh_be.Migrations
                         new
                         {
                             MovieID = 1,
-                            CreatedAt = new DateTime(2024, 6, 18, 15, 17, 52, 306, DateTimeKind.Local).AddTicks(4570),
+                            CreatedAt = new DateTime(2024, 6, 18, 16, 14, 58, 526, DateTimeKind.Local).AddTicks(5020),
                             Description = "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
                             Genre = "Sci-Fi",
                             Image = "inception.jpg",
@@ -65,7 +66,7 @@ namespace afh_be.Migrations
                         new
                         {
                             MovieID = 2,
-                            CreatedAt = new DateTime(2024, 6, 23, 15, 17, 52, 306, DateTimeKind.Local).AddTicks(4580),
+                            CreatedAt = new DateTime(2024, 6, 23, 16, 14, 58, 526, DateTimeKind.Local).AddTicks(5020),
                             Description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
                             Genre = "Drama",
                             Image = "shawshank.jpg",
@@ -76,7 +77,7 @@ namespace afh_be.Migrations
                         new
                         {
                             MovieID = 3,
-                            CreatedAt = new DateTime(2024, 6, 28, 15, 17, 52, 306, DateTimeKind.Local).AddTicks(4580),
+                            CreatedAt = new DateTime(2024, 6, 28, 16, 14, 58, 526, DateTimeKind.Local).AddTicks(5030),
                             Description = "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
                             Genre = "Crime",
                             Image = "pulpfiction.jpg",
@@ -111,7 +112,7 @@ namespace afh_be.Migrations
                         new
                         {
                             UserID = 1,
-                            CreatedAt = new DateTime(2024, 6, 8, 15, 17, 52, 306, DateTimeKind.Local).AddTicks(4440),
+                            CreatedAt = new DateTime(2024, 6, 8, 16, 14, 58, 526, DateTimeKind.Local).AddTicks(4860),
                             Email = "john@example.com",
                             HashedPassword = "hashed_password_1",
                             Name = "John Doe"
@@ -119,7 +120,7 @@ namespace afh_be.Migrations
                         new
                         {
                             UserID = 2,
-                            CreatedAt = new DateTime(2024, 6, 13, 15, 17, 52, 306, DateTimeKind.Local).AddTicks(4490),
+                            CreatedAt = new DateTime(2024, 6, 13, 16, 14, 58, 526, DateTimeKind.Local).AddTicks(4920),
                             Email = "jane@example.com",
                             HashedPassword = "hashed_password_2",
                             Name = "Jane Smith"

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.002.0
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "afh-be", "afh-be.csproj", "{FA82CB2D-18DF-4B37-A4BF-0FE543C077A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "afh-api", "afh-api\afh-api.csproj", "{A577084B-8A66-47AE-8EF8-515DEF59E5EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "afh-db", "afh-db\afh-db.csproj", "{57C493AA-824E-45FB-A405-5FE84AF4EDCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FA82CB2D-18DF-4B37-A4BF-0FE543C077A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA82CB2D-18DF-4B37-A4BF-0FE543C077A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA82CB2D-18DF-4B37-A4BF-0FE543C077A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA82CB2D-18DF-4B37-A4BF-0FE543C077A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A577084B-8A66-47AE-8EF8-515DEF59E5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A577084B-8A66-47AE-8EF8-515DEF59E5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A577084B-8A66-47AE-8EF8-515DEF59E5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A577084B-8A66-47AE-8EF8-515DEF59E5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C493AA-824E-45FB-A405-5FE84AF4EDCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C493AA-824E-45FB-A405-5FE84AF4EDCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C493AA-824E-45FB-A405-5FE84AF4EDCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C493AA-824E-45FB-A405-5FE84AF4EDCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {830D156C-F854-443A-9889-CA51FE0A53EB}
+		SolutionGuid = {4F49228C-555C-440E-BC2F-1EB1BEF9AD8B}
 	EndGlobalSection
 EndGlobal
