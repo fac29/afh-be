@@ -8,25 +8,26 @@ namespace afh_be.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly MovieDBContext _context;
+        private readonly IUserLibrary _userLibrary;
 
-        public UsersController(MovieDBContext context)
+        public UserController(IUserLibrary userLibrary)
         {
-            _context = context;
+            _userLibrary = userLibrary;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        // Commented out the all route as this could be a security risk
+        // [HttpGet]
+        // public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        // {
+        //     return await _userLibrary.Users.ToListAsync();
+        // }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userLibrary.GetUserById(id);
 
             if (user == null)
             {
@@ -36,23 +37,21 @@ namespace afh_be.Controllers
             return user;
         }
 
-        [HttpPost("AddUser")]
-        public async Task AddUser([FromBody] User Object)
+        [HttpPost("Add")]
+        public async Task AddUser([FromBody] User user)
         {
-            var user = Object;
             if (user != null)
             {
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
+                await _userLibrary.AddUser(user);
             }
             return;
         }
 
-        [HttpPatch("EditUser{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> EditUser([FromBody] User updatedUser, int id)
         {
             // Find the existing user by id
-            var existingUser = await _context.Users.FindAsync(id);
+            var existingUser = await _userLibrary.GetUserById(id);
 
             // Check if the user exists
             if (existingUser == null)
@@ -60,35 +59,30 @@ namespace afh_be.Controllers
                 return NotFound(); // Return 404 Not Found if user with id not found
             }
 
-            // Update the existing user properties with values from updatedUser
-            existingUser.Name = updatedUser.Name;
-            existingUser.Email = updatedUser.Email;
-            existingUser.HashedPassword = updatedUser.HashedPassword;
-            // Do not update CreatedAt assuming it should remain the same
-
             try
             {
                 // Save changes to the database
-                await _context.SaveChangesAsync();
+                await _userLibrary.EditUser(updatedUser);
                 return NoContent(); // Return 204 No Content on successful update
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 // Handle concurrency exception (optional)
+                // Log an error here
                 return StatusCode(500); // Return 500 Internal Server Error or handle differently
             }
         }
 
-        [HttpDelete("Delete{id}")]
-        public async Task DeleteUSer(int id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<User>> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
-            if (user != null)
+            var user = await _userLibrary.GetUserById(id);
+            if (user == null)
             {
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
-                return;
+                return NotFound();
             }
+            await _userLibrary.DeleteUser(user);
+            return NoContent();
         }
     }
 }
