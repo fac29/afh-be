@@ -18,14 +18,12 @@ namespace afh_be.Controllers
             _movieLibrary = movieLibrary;
         }
 
-        // Get:
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesList()
         {
             return await _movieLibrary.GetMoviesList();
         }
 
-        // Get: /Students/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovieById(int id)
         {
@@ -39,7 +37,7 @@ namespace afh_be.Controllers
             return movie;
         }
 
-        [HttpPost("AddMovie")]
+        [HttpPost("{id}")]
         public async Task AddMovie([FromBody] Movie movie)
         {
             if (movie != null)
@@ -49,7 +47,7 @@ namespace afh_be.Controllers
             return;
         }
 
-        [HttpPatch("EditMovie{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> EditMovie([FromBody] Movie updatedMovie, int id)
         {
             // Find the existing movie by id
@@ -74,7 +72,7 @@ namespace afh_be.Controllers
             }
         }
 
-        [HttpDelete("Delete{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Movie>> DeleteMovie(int id)
         {
             var movie = await _movieLibrary.GetMovieById(id);
