@@ -37,7 +37,7 @@ namespace afh_be.Controllers
             return user;
         }
 
-        [HttpPost("Add")]
+        [HttpPost("")]
         public async Task AddUser([FromBody] User user)
         {
             if (user != null)
