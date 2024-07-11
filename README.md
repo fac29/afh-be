@@ -17,7 +17,7 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 
 ### Movies: 
 -   `GET /Movie` - Get all movies
--   `GET /Movies/{id}` - Retrieve a movie by id
+-   `GET /Movie/{id}` - Retrieve a movie by id
 -   `PATCH /Movie/{id}` - Edit a movie by id
 -   `DELETE /Movie/{id}` - Delete a movie by id
 -   `POST /Movie` - Add a movie
