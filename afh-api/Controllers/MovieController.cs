@@ -9,11 +9,11 @@ namespace afh_be.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MoviesController : ControllerBase
+    public class MovieController : ControllerBase
     {
         private readonly IMovieLibrary _movieLibrary;
 
-        public MoviesController(IMovieLibrary movieLibrary)
+        public MovieController(IMovieLibrary movieLibrary)
         {
             _movieLibrary = movieLibrary;
         }
