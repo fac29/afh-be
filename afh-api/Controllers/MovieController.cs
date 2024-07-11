@@ -37,7 +37,7 @@ namespace afh_be.Controllers
             return movie;
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("")]
         public async Task AddMovie([FromBody] Movie movie)
         {
             if (movie != null)
