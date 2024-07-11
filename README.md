@@ -5,7 +5,7 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 2. Run ```dotnet restore```
 3. In your command terminal ```cd afh-api```
 4. run ```dotnet run```
-5. Make sure the localhost has ```/swagger``` at the end 
+5. Make sure the localhost has ```/swagger/index.html``` at the end 
  
 ## Endpoints
 
@@ -16,14 +16,14 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 -   `POST /User` - Add a user
 
 ### Movies: 
--   `GET /Movies` - Get all movies
--   `GET /Movies/{id}` - Retrieve a movie by id
+-   `GET /Movie` - Get all movies
+-   `GET /Movie/{id}` - Retrieve a movie by id
 -   `PATCH /Movie/{id}` - Edit a movie by id
 -   `DELETE /Movie/{id}` - Delete a movie by id
 -   `POST /Movie` - Add a movie
 
 ### Collections: 
--   `GET /Collections` - Get all collections
+-   `GET /Collection` - Get all collections
 -   `GET /Collection/{id}` - Retrieve a collection by id
 -   `PATCH /Collection/{id}` - Edit a collection by id
 -   `DELETE /Collection/{id}` - Delete a collection by id
