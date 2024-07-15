@@ -38,11 +38,11 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("")]
-        public async Task AddMovie([FromBody] Movie movie)
+        public async Task AddMovie([FromBody] Movie newMovie)
         {
-            if (movie != null)
+            if (newMovie != null)
             {
-                await _movieLibrary.AddMovie(movie);
+                await _movieLibrary.AddMovie(newMovie);
             }
             return;
         }
