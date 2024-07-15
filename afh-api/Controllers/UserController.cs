@@ -46,13 +46,16 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("")]
-        public async Task AddUser([FromBody] User user)
+        [SwaggerResponse(204, "No Content")]
+        public async Task<IActionResult> AddUser([FromBody] AddUserDto newUserDto)
         {
-            if (user != null)
+            if (newUserDto != null)
             {
-                await _userLibrary.AddUser(user);
+                var userDto = _mapper.Map<User>(newUserDto);
+                await _userLibrary.AddUser(userDto);
+                return NoContent();
             }
-            return;
+            return BadRequest("Movie data is null");
         }
 
         [HttpPatch("{id}")]
