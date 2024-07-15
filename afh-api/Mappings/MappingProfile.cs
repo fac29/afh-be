@@ -10,6 +10,7 @@ namespace afh_api.Mappings
         {
             CreateMap<User, UserDto>();
             CreateMap<Movie, MovieDto>();
+            CreateMap<AddMovieDto, Movie>();
         }
     }
 }
