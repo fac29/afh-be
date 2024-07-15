@@ -28,7 +28,7 @@ namespace afh_be.Controllers
         public async Task<ActionResult<IEnumerable<Movie>>> GetMoviesList()
         {
             var movies = await _movieLibrary.GetMoviesList();
-            var movieDto = _mapper.Map<MovieDto>(movies);
+            var movieDto = _mapper.Map<IEnumerable<MovieDto>>(movies);
             return Ok(movieDto);
         }
 
@@ -49,10 +49,12 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("")]
+        // [SwaggerResponse(200, "Success", typeof(MovieDto))]
         public async Task AddMovie([FromBody] Movie newMovie)
         {
             if (newMovie != null)
             {
+                // var movieDto = _mapper.Map<MovieDto>(newMovie);
                 await _movieLibrary.AddMovie(newMovie);
             }
             return;
