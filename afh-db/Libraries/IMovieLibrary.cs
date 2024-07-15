@@ -8,8 +8,8 @@ public interface IMovieLibrary
     Task<Movie?> GetMovieById(int id);
     Task DeleteMovie(Movie movie);
     Task<List<Movie>> GetMoviesList();
-    Task AddMovie(Movie movie);
-    Task EditMovie(Movie movie);
+    Task AddMovie(Movie newMovie);
+    Task EditMovie(Movie editMovie, Movie existingMovie);
 }
 
 public class MovieLibrary : IMovieLibrary
@@ -37,16 +37,22 @@ public class MovieLibrary : IMovieLibrary
         return await _context.Movies.ToListAsync();
     }
 
-    public async Task AddMovie(Movie movie)
+    public async Task AddMovie(Movie newMovie)
     {
-        await _context.Movies.AddAsync(movie);
+        await _context.Movies.AddAsync(newMovie);
         await _context.SaveChangesAsync();
     }
 
-    public async Task EditMovie(Movie movie)
+    public async Task EditMovie(Movie editMovie, Movie existingMovie)
     {
-        // Save changes to the database
-        _context.Movies.Update(movie);
+        foreach (var property in editMovie.GetType().GetProperties())
+        {
+            var value = property.GetValue(editMovie);
+            if (value != null)
+            {
+                _context.Entry(existingMovie).Property(property.Name).CurrentValue = value;
+            }
+        }
         await _context.SaveChangesAsync();
     }
 }
