@@ -59,7 +59,7 @@ namespace afh_be.Controllers
 
             try
             {
-                await _movieLibrary.EditMovie(updatedMovie);
+                await _movieLibrary.EditMovie(updatedMovie, existingMovie);
                 return NoContent();
             }
             catch (Exception)
