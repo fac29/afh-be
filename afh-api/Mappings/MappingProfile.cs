@@ -9,6 +9,7 @@ namespace afh_api.Mappings
         public MappingProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<Movie, MovieDto>();
         }
     }
 }
