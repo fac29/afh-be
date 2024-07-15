@@ -10,24 +10,24 @@ namespace afh_be.Controllers
     [Route("[controller]")]
     public class CollectionController : ControllerBase
     {
-        private readonly IControllerLibrary _controllerLibrary;
+        private readonly ICollectionLibrary _collectionLibrary;
 
-        public CollectionController(IControllerLibrary controllerlibrary)
+        public CollectionController(ICollectionLibrary collectionlibrary)
         {
-            _controllerLibrary = controllerlibrary;
+            _collectionLibrary = collectionlibrary;
         }
 
         // Get:
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsList()
         {
-            return await _controllerLibrary.GetCollectionsList();
+            return await _collectionLibrary.GetCollectionsList();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Collection>> GetCollectionById(int id)
         {
-            var collection = await _controllerLibrary.GetCollectionById(id);
+            var collection = await _collectionLibrary.GetCollectionById(id);
 
             if (collection == null)
             {
@@ -42,7 +42,7 @@ namespace afh_be.Controllers
         {
             if (collection != null)
             {
-                await _controllerLibrary.AddCollection(collection);
+                await _collectionLibrary.AddCollection(collection);
             }
             return;
         }
@@ -53,7 +53,7 @@ namespace afh_be.Controllers
             int id
         )
         {
-            var existingCollection = await _controllerLibrary.GetCollectionById(id);
+            var existingCollection = await _collectionLibrary.GetCollectionById(id);
             if (existingCollection == null)
             {
                 return NotFound();
@@ -61,7 +61,7 @@ namespace afh_be.Controllers
 
             try
             {
-                await _controllerLibrary.EditCollection(updatedCollection);
+                await _collectionLibrary.EditCollection(updatedCollection);
                 return NoContent();
             }
             catch (Exception)
@@ -73,12 +73,12 @@ namespace afh_be.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Collection>> DeleteCollection(int id)
         {
-            var collection = await _controllerLibrary.GetCollectionById(id);
+            var collection = await _collectionLibrary.GetCollectionById(id);
             if (collection == null)
             {
                 return NotFound();
             }
-            await _controllerLibrary.DeleteCollection(collection);
+            await _collectionLibrary.DeleteCollection(collection);
             return NoContent();
         }
     }
