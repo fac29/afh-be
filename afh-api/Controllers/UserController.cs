@@ -1,7 +1,10 @@
 using afh_db;
 using afh_db.Libraries;
 using afh_db.Models;
+using afh_api.DTOs;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace afh_be.Controllers
@@ -11,10 +14,12 @@ namespace afh_be.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserLibrary _userLibrary;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserLibrary userLibrary)
+        public UserController(IUserLibrary userLibrary, IMapper mapper)
         {
             _userLibrary = userLibrary;
+            _mapper = mapper;
         }
 
         // Commented out the all route as this could be a security risk
@@ -25,7 +30,8 @@ namespace afh_be.Controllers
         // }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserById(int id)
+        [SwaggerResponse(200, "Success", typeof(UserDto))]
+                public async Task<ActionResult<User>> GetUserById(int id)
         {
             var user = await _userLibrary.GetUserById(id);
 
@@ -34,7 +40,9 @@ namespace afh_be.Controllers
                 return NotFound();
             }
 
-            return user;
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return Ok(userDto);
         }
 
         [HttpPost("")]
