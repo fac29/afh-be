@@ -12,9 +12,9 @@ namespace afh_be.Controllers
     {
         private readonly ICollectionLibrary _collectionLibrary;
 
-        public CollectionController(ICollectionLibrary controllerlibrary)
+        public CollectionController(ICollectionLibrary collectionlibrary)
         {
-            _collectionLibrary = controllerlibrary;
+            _collectionLibrary = collectionlibrary;
         }
 
         // Get:

@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<IUserLibrary, UserLibrary>();
 builder.Services.AddScoped<IMovieLibrary, MovieLibrary>();
-builder.Services.AddScoped<IControllerLibrary, ControllerLibrary>();
+builder.Services.AddScoped<ICollectionLibrary, CollectionLibrary>();
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<MovieDBContext>(options =>

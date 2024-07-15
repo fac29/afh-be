@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace afh_db.Libraries;
 
-public interface IControllerLibrary
+public interface ICollectionLibrary
 {
     Task<List<Collection>> GetCollectionsList();
     Task<Collection?> GetCollectionById(int id);
@@ -12,11 +12,11 @@ public interface IControllerLibrary
     Task DeleteCollection(Collection collection);
 }
 
-public class ControllerLibrary : IControllerLibrary
+public class CollectionLibrary : ICollectionLibrary
 {
     private readonly MovieDBContext _context;
 
-    public ControllerLibrary(MovieDBContext context)
+    public CollectionLibrary(MovieDBContext context)
     {
         _context = context;
     }
