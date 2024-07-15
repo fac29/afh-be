@@ -8,7 +8,7 @@ public interface IMovieLibrary
     Task<Movie?> GetMovieById(int id);
     Task DeleteMovie(Movie movie);
     Task<List<Movie>> GetMoviesList();
-    Task AddMovie(Movie movie);
+    Task AddMovie(Movie newMovie);
     Task EditMovie(Movie movie);
 }
 
@@ -37,9 +37,9 @@ public class MovieLibrary : IMovieLibrary
         return await _context.Movies.ToListAsync();
     }
 
-    public async Task AddMovie(Movie movie)
+    public async Task AddMovie(Movie newMovie)
     {
-        await _context.Movies.AddAsync(movie);
+        await _context.Movies.AddAsync(newMovie);
         await _context.SaveChangesAsync();
     }
 
