@@ -1,8 +1,11 @@
 using afh_db;
 using afh_db.Libraries;
+using afh_api.Mappings;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container.
 builder.Services.AddScoped<IUserLibrary, UserLibrary>();
