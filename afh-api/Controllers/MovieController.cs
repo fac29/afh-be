@@ -50,10 +50,8 @@ namespace afh_be.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> EditMovie([FromBody] Movie updatedMovie, int id)
         {
-            // Find the existing movie by id
             var existingMovie = await _movieLibrary.GetMovieById(id);
 
-            // Check if the movie exists
             if (existingMovie == null)
             {
                 return NotFound(); // Return 404 Not Found if movie with id not found
