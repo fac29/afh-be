@@ -2,6 +2,7 @@ namespace afh_api.DTOs
 {
   public class MovieDto
     {
+        public int MovieID { get; set; }
         public string? Title { get; set; }
         public string? Length { get; set; }
         public string? Description { get; set; }
