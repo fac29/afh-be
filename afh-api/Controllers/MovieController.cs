@@ -49,11 +49,11 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("")]
-        public async Task AddMovie([FromBody] Movie movie)
+        public async Task AddMovie([FromBody] Movie newMovie)
         {
-            if (movie != null)
+            if (newMovie != null)
             {
-                await _movieLibrary.AddMovie(movie);
+                await _movieLibrary.AddMovie(newMovie);
             }
             return;
         }
@@ -61,10 +61,8 @@ namespace afh_be.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> EditMovie([FromBody] Movie updatedMovie, int id)
         {
-            // Find the existing movie by id
             var existingMovie = await _movieLibrary.GetMovieById(id);
 
-            // Check if the movie exists
             if (existingMovie == null)
             {
                 return NotFound(); // Return 404 Not Found if movie with id not found
@@ -72,7 +70,7 @@ namespace afh_be.Controllers
 
             try
             {
-                await _movieLibrary.EditMovie(updatedMovie);
+                await _movieLibrary.EditMovie(updatedMovie, existingMovie);
                 return NoContent();
             }
             catch (Exception)
