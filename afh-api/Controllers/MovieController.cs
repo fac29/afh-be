@@ -48,16 +48,19 @@ namespace afh_be.Controllers
             return Ok(movieDto);
         }
 
-        [HttpPost("")]
-        // [SwaggerResponse(200, "Success", typeof(MovieDto))]
-        public async Task AddMovie([FromBody] Movie newMovie)
+        [HttpPost]
+        [SwaggerResponse(204, "No Content")]
+        public async Task<IActionResult> AddMovie([FromBody] AddMovieDto newMovieDto)
         {
-            if (newMovie != null)
+            if (newMovieDto != null)
             {
-                // var movieDto = _mapper.Map<MovieDto>(newMovie);
-                await _movieLibrary.AddMovie(newMovie);
+
+            var movieDto = _mapper.Map<Movie>(newMovieDto);
+            await _movieLibrary.AddMovie(movieDto);
+            return NoContent();
             }
-            return;
+
+            return BadRequest("Movie data is null");
         }
 
         [HttpPatch("{id}")]
