@@ -5,8 +5,8 @@ public class CollectionMovie
 {
     [Key]
     public int CollectionID { get; set; }
-    public Collection Collection { get; set; }
+    public Collection Collection { get; set; } = null!;
     [Key]
     public int MovieID { get; set; }
-    public Movie Movie { get; set; }
+    public Movie Movie { get; set; } = null!;
 }
