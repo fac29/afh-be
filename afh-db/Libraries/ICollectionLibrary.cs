@@ -23,13 +23,20 @@ public class CollectionLibrary : ICollectionLibrary
 
     public async Task<List<Collection>> GetCollectionsList()
     {
-        return await _context.Collections.ToListAsync();
+        return await _context.Collections
+        .Include(c => c.CollectionMovies)  // Include CollectionMovies
+            .ThenInclude(cm => cm.Movie)   // Then include Movie within CollectionMovies
+        .ToListAsync();
     }
 
-    public async Task<Collection?> GetCollectionById(int id)
-    {
-        return await _context.Collections.FindAsync(id);
-    }
+  public async Task<Collection?> GetCollectionById(int id)
+{
+    return await _context.Collections
+        .Include(c => c.CollectionMovies)
+        .ThenInclude(cm => cm.Movie)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(c => c.CollectionID == id);
+}
 
     public async Task AddCollection(Collection collection)
     {

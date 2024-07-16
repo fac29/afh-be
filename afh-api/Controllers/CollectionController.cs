@@ -1,6 +1,8 @@
 using afh_db;
 using afh_db.Libraries;
 using afh_db.Models;
+using afh_shared.DTOs;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,17 +13,21 @@ namespace afh_be.Controllers
     public class CollectionController : ControllerBase
     {
         private readonly ICollectionLibrary _collectionLibrary;
+        private readonly IMapper _mapper;
 
-        public CollectionController(ICollectionLibrary collectionlibrary)
+        public CollectionController(ICollectionLibrary collectionlibrary, IMapper mapper)
         {
             _collectionLibrary = collectionlibrary;
+            _mapper = mapper;
         }
 
         // Get:
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsList()
         {
-            return await _collectionLibrary.GetCollectionsList();
+             var collections = await _collectionLibrary.GetCollectionsList();
+             var collectionsDto = _mapper.Map<IEnumerable<CollectionDto>>(collections);
+            return Ok(collectionsDto);
         }
 
         [HttpGet("{id}")]
@@ -29,12 +35,13 @@ namespace afh_be.Controllers
         {
             var collection = await _collectionLibrary.GetCollectionById(id);
 
-            if (collection == null)
-            {
-                return NotFound();
-            }
+    if (collection == null)
+    {
+        return NotFound();
+    }
 
-            return collection;
+    var collectionDto = _mapper.Map<CollectionDto>(collection);
+    return Ok(collectionDto);
         }
 
         [HttpPost("Add")]

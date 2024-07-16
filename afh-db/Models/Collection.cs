@@ -12,7 +12,7 @@ namespace afh_db.Models
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; }
         public int UserID { get; set; }
-        public User? User { get; set; }
-        public ICollection<CollectionMovie>? CollectionMovies { get; set; }
+        // public User? User { get; set; }
+        public ICollection<CollectionMovie> CollectionMovies { get; set; } = new List<CollectionMovie>();
     }
 }

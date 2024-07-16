@@ -17,6 +17,6 @@ namespace afh_db.Models
         public string? Image { get; set; }        
         public int Rating { get; set; }
         public DateTime CreatedAt { get; set; }
-        public ICollection<CollectionMovie>? CollectionMovies { get; set; }
+        public ICollection<CollectionMovie> CollectionMovies { get; set; } = new List<CollectionMovie>();
     }
 }
