@@ -26,10 +26,14 @@ public class CollectionLibrary : ICollectionLibrary
         return await _context.Collections.ToListAsync();
     }
 
-    public async Task<Collection?> GetCollectionById(int id)
-    {
-        return await _context.Collections.FindAsync(id);
-    }
+  public async Task<Collection?> GetCollectionById(int id)
+{
+    return await _context.Collections
+        .Include(c => c.CollectionMovies)
+        .ThenInclude(cm => cm.Movie)
+        .AsNoTracking()
+        .FirstOrDefaultAsync(c => c.CollectionID == id);
+}
 
     public async Task AddCollection(Collection collection)
     {
