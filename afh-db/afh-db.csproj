@@ -25,4 +25,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="movielib.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <TargetPath>afh-db/movielib.db</TargetPath>
+    </None>
+  </ItemGroup>
+
 </Project>

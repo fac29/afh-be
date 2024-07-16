@@ -61,7 +61,7 @@ namespace afh_be.Controllers
 
             try
             {
-                await _collectionLibrary.EditCollection(updatedCollection);
+                await _collectionLibrary.EditCollection(updatedCollection, existingCollection);
                 return NoContent();
             }
             catch (Exception)
