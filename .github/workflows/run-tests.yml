@@ -2,8 +2,6 @@ name: Run Tests on PR
 
 on:
   pull_request:
-    branches:
-      - main # Adjust the branch name as per your main branch
 
 jobs:
   test:
