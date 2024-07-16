@@ -17,14 +17,18 @@ public class UserControllerTests : IClassFixture<CustomWebApplicationFactory<Pro
     public async Task GetUser_ReturnsSuccessAndCorrectContentType()
     {
         // Arrange
-        var userId = 2;
+        var userId = 1;
 
         // Act
         var response = await _client.GetAsync($"/User/{userId}");
 
         // Assert
         response.EnsureSuccessStatusCode(); // Status Code 200-299
-        response.Content.Headers.ContentType.ToString().Should().Contain("application/json");
+        var contentType = response.Content.Headers.ContentType?.ToString();
+        contentType
+            .Should()
+            .NotBeNull("because a successful response should have a Content-Type header");
+        contentType.Should().Contain("application/json");
     }
 
     // [Fact]
