@@ -14,7 +14,7 @@ namespace afh_api.Mappings
             CreateMap<Movie, MovieDto>();
             CreateMap<AddMovieDto, Movie>();
             CreateMap<Collection, CollectionDto>()
-            .ForMember(dest => dest.Movies, opt => opt.Ignore());
+            .ForMember(dest => dest.Movies, opt => opt.MapFrom(src => src.CollectionMovies.Select(cm => cm.Movie)));
         }
     }
 }

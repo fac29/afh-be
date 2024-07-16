@@ -38,26 +38,7 @@ namespace afh_be.Controllers
         return NotFound();
     }
 
-    var collectionDto = new CollectionDto
-    {
-        CollectionID = collection.CollectionID,
-        Name = collection.Name,
-        Description = collection.Description,
-        CreatedAt = collection.CreatedAt,
-        UserID = collection.UserID,
-        Movies = collection.CollectionMovies
-            .Select(cm => new MovieDto
-            {
-                MovieID = cm.Movie.MovieID,
-                Title = cm.Movie.Title,
-                Length = cm.Movie.Length,
-                Description = cm.Movie.Description,
-                Genre = cm.Movie.Genre,
-                Image = cm.Movie.Image,
-                Rating = cm.Movie.Rating,
-            }).ToList()
-    };
-
+    var collectionDto = _mapper.Map<CollectionDto>(collection);
     return Ok(collectionDto);
         }
 
