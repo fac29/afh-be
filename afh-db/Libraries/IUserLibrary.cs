@@ -1,4 +1,5 @@
 ﻿using afh_db.Models;
+using afh_shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace afh_db.Libraries;
@@ -9,7 +10,7 @@ public interface IUserLibrary
 
     Task AddUser(User user);
     Task DeleteUser(User user);
-    Task EditUser(User user);
+    Task EditUser(EditUserDto user, User existingUser);
 }
 
 public class UserLibrary : IUserLibrary
@@ -39,9 +40,16 @@ public class UserLibrary : IUserLibrary
         return user;
     }
 
-    public async Task EditUser(User user)
+    public async Task EditUser(EditUserDto editUser, User existingUser)
     {
-        _context.Users.Update(user);
+       foreach (var property in editUser.GetType().GetProperties())
+        {
+            var value = property.GetValue(editUser);
+            if (value != null)
+            {
+                _context.Entry(existingUser).Property(property.Name).CurrentValue = value;
+            }
+        }
         await _context.SaveChangesAsync();
     }
 }

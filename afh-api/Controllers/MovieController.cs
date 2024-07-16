@@ -2,7 +2,7 @@
 using afh_db;
 using afh_db.Libraries;
 using afh_db.Models;
-using afh_api.DTOs;
+using afh_shared.DTOs;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;

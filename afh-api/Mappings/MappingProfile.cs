@@ -1,5 +1,5 @@
 using AutoMapper;
-using afh_api.DTOs;
+using afh_shared.DTOs;
 using afh_db.Models;
 
 namespace afh_api.Mappings
@@ -10,6 +10,7 @@ namespace afh_api.Mappings
         {
             CreateMap<User, UserDto>();
             CreateMap<AddUserDto, User>();
+            CreateMap<EditUserDto, User>();
             CreateMap<Movie, MovieDto>();
             CreateMap<AddMovieDto, Movie>();
         }

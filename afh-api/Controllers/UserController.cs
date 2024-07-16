@@ -1,7 +1,7 @@
 using afh_db;
 using afh_db.Libraries;
 using afh_db.Models;
-using afh_api.DTOs;
+using afh_shared.DTOs;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -59,7 +59,8 @@ namespace afh_be.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> EditUser([FromBody] User updatedUser, int id)
+        [SwaggerResponse(204, "No Content")]
+        public async Task<IActionResult> EditUser([FromBody] EditUserDto updatedUser, int id)
         {
             // Find the existing user by id
             var existingUser = await _userLibrary.GetUserById(id);
@@ -73,7 +74,9 @@ namespace afh_be.Controllers
             try
             {
                 // Save changes to the database
-                await _userLibrary.EditUser(updatedUser);
+                // var existingUserDto = _mapper.Map<EditUserDto>(existingUser); 
+                // var updatedUserDto = _mapper.Map<EditUserDto>(updatedUser);
+                await _userLibrary.EditUser(updatedUser, existingUser);
                 return NoContent(); // Return 204 No Content on successful update
             }
             catch (Exception)
