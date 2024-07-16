@@ -25,7 +25,9 @@ namespace afh_be.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsList()
         {
-            return await _collectionLibrary.GetCollectionsList();
+             var collections = await _collectionLibrary.GetCollectionsList();
+             var collectionsDto = _mapper.Map<IEnumerable<CollectionDto>>(collections);
+            return Ok(collectionsDto);
         }
 
         [HttpGet("{id}")]
