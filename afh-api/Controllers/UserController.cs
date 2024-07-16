@@ -74,8 +74,6 @@ namespace afh_be.Controllers
             try
             {
                 // Save changes to the database
-                // var existingUserDto = _mapper.Map<EditUserDto>(existingUser); 
-                // var updatedUserDto = _mapper.Map<EditUserDto>(updatedUser);
                 await _userLibrary.EditUser(updatedUser, existingUser);
                 return NoContent(); // Return 204 No Content on successful update
             }
