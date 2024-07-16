@@ -3,11 +3,11 @@ name: Run Tests on PR
 on:
   pull_request:
     branches:
-      - main
+      - main # Adjust the branch name as per your main branch
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # You can change the OS as per your preference
 
     steps:
       - uses: actions/checkout@v2
@@ -15,15 +15,15 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "8.0.6"
+          dotnet-version: "8.0.6" # Replace with your desired .NET version
 
       - name: Restore dependencies
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build
 
       - name: Run Tests
-        run: |
-          cd afh-be.Tests
-          dotnet test --no-restore --verbosity normal
+        run: 
+        cd afh-be.Tests
+        dotnet test
