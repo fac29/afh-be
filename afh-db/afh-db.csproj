@@ -25,4 +25,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\afh-shared\afh-shared.csproj" />
+  </ItemGroup>
+
 </Project>
