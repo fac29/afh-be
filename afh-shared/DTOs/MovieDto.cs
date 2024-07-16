@@ -1,4 +1,5 @@
-namespace afh_api.DTOs
+using afh_shared.Interfaces;
+namespace afh_shared.DTOs
 {
   public class MovieDto
     {
@@ -9,7 +10,7 @@ namespace afh_api.DTOs
         public string? Genre { get; set; }
         public string? Image { get; set; }        
         public int Rating { get; set; }
-        public ICollection<CollectionMovie>? CollectionMovies { get; set; }
+        public ICollection<ICollectionMovie>? CollectionMovies { get; set; }
     }
 
     public class AddMovieDto {

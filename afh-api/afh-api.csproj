@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\afh-db\afh-db.csproj" />
+    <ProjectReference Include="..\afh-shared\afh-shared.csproj" />
   </ItemGroup>
 
 </Project>
