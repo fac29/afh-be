@@ -1,6 +1,8 @@
 using afh_db;
 using afh_db.Libraries;
 using afh_db.Models;
+using afh_shared.DTOs;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +13,12 @@ namespace afh_be.Controllers
     public class CollectionController : ControllerBase
     {
         private readonly ICollectionLibrary _collectionLibrary;
+        private readonly IMapper _mapper;
 
-        public CollectionController(ICollectionLibrary collectionlibrary)
+        public CollectionController(ICollectionLibrary collectionlibrary, IMapper mapper)
         {
             _collectionLibrary = collectionlibrary;
+            _mapper = mapper;
         }
 
         // Get:
@@ -29,12 +33,32 @@ namespace afh_be.Controllers
         {
             var collection = await _collectionLibrary.GetCollectionById(id);
 
-            if (collection == null)
-            {
-                return NotFound();
-            }
+    if (collection == null)
+    {
+        return NotFound();
+    }
 
-            return collection;
+    var collectionDto = new CollectionDto
+    {
+        CollectionID = collection.CollectionID,
+        Name = collection.Name,
+        Description = collection.Description,
+        CreatedAt = collection.CreatedAt,
+        UserID = collection.UserID,
+        Movies = collection.CollectionMovies
+            .Select(cm => new MovieDto
+            {
+                MovieID = cm.Movie.MovieID,
+                Title = cm.Movie.Title,
+                Length = cm.Movie.Length,
+                Description = cm.Movie.Description,
+                Genre = cm.Movie.Genre,
+                Image = cm.Movie.Image,
+                Rating = cm.Movie.Rating,
+            }).ToList()
+    };
+
+    return Ok(collectionDto);
         }
 
         [HttpPost("Add")]
