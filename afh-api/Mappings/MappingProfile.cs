@@ -13,6 +13,8 @@ namespace afh_api.Mappings
             CreateMap<EditUserDto, User>();
             CreateMap<Movie, MovieDto>();
             CreateMap<AddMovieDto, Movie>();
+            CreateMap<Collection, CollectionDto>()
+            .ForMember(dest => dest.Movies, opt => opt.Ignore());
         }
     }
 }
