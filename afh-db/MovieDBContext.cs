@@ -19,7 +19,7 @@ namespace afh_db
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("Data Source=CU.db");
+                optionsBuilder.UseSqlite("Data Source=movielib.db");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
