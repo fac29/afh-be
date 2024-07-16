@@ -1,4 +1,4 @@
-namespace afh_api.DTOs
+namespace afh_shared.DTOs
 {
     public class UserDto
     {
@@ -12,5 +12,11 @@ namespace afh_api.DTOs
         public string? Name { get; set; }
         public string? Email { get; set; }
         public string? HashedPassword { get; set; }
+    }
+
+    public class EditUserDto 
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
     }
 }
