@@ -1,11 +1,16 @@
+using System.Runtime.CompilerServices;
+using afh_api.Mappings;
 using afh_db;
 using afh_db.Libraries;
-using afh_api.Mappings;
 using Microsoft.EntityFrameworkCore;
+
+[assembly: InternalsVisibleTo("afh-be.Tests")]
+
+;
 
 var builder = WebApplication.CreateBuilder(args);
 
- builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container.
 builder.Services.AddScoped<IUserLibrary, UserLibrary>();
@@ -56,3 +61,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { };
