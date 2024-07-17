@@ -68,7 +68,7 @@ public async Task<IActionResult> EditCollection(
         return NotFound();
     }
 
-    if (existingCollection.CollectionID != updatedCollection.CollectionID)
+    if (existingCollection.CollectionID != id)
     {
         return BadRequest("Collection ID mismatch");
     }
