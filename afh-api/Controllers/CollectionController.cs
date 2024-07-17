@@ -45,13 +45,15 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task AddCollection([FromBody] Collection collection)
+        public async Task<IActionResult> AddCollection([FromBody] AddCollectionDto newCollectionDto)
         {
-            if (collection != null)
+            if (newCollectionDto != null)
             {
-                await _collectionLibrary.AddCollection(collection);
+                var collectionDto = _mapper.Map<Collection>(newCollectionDto);
+                await _collectionLibrary.AddCollection(collectionDto);
+                return NoContent();
             }
-            return;
+            return BadRequest("Collection data is null");
         }
 
         [HttpPatch("{id}")]
