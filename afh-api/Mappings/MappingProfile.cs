@@ -18,6 +18,11 @@ namespace afh_api.Mappings
             CreateMap<AddCollectionDto, Collection>()
             .ForMember(dest => dest.CollectionMovies, opt => opt.MapFrom(src => src.CollectionMovies.Select(m => new CollectionMovie { MovieID = m.MovieID })))
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.UtcNow));
+            CreateMap<EditCollectionDto, Collection>()
+    .ForMember(dest => dest.CollectionMovies, opt => opt.Ignore()) // Ignore mapping for CollectionMovies in Edit
+    .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) // Ignore mapping for CreatedAt in Edit
+    .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+    .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description));
         }
     }
 }
