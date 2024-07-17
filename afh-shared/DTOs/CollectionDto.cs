@@ -16,4 +16,11 @@ namespace afh_shared.DTOs
         public int UserID { get; set; }
         public List<MovieDto> CollectionMovies { get; set; } = new List<MovieDto>();
     }
+
+     public class EditCollectionDto {
+      public int CollectionID { get; set; }
+       public string? Name { get; set; }
+        public string? Description { get; set; }
+        public List<MovieDto> CollectionMovies { get; set; } = new List<MovieDto>();
+    }
 }
