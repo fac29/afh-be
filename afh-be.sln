@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "afh-shared", "afh-shared\af
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "afh-be.Tests", "afh-be.Tests\afh-be.Tests.csproj", "{5F8435BF-0B92-4C23-B48A-C23890B72F3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "afh-be.Auth", "afh-be.Auth\afh-be.Auth.csproj", "{ED939B62-A747-4108-855A-07FEB6A15437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{5F8435BF-0B92-4C23-B48A-C23890B72F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F8435BF-0B92-4C23-B48A-C23890B72F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F8435BF-0B92-4C23-B48A-C23890B72F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED939B62-A747-4108-855A-07FEB6A15437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED939B62-A747-4108-855A-07FEB6A15437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED939B62-A747-4108-855A-07FEB6A15437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED939B62-A747-4108-855A-07FEB6A15437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
