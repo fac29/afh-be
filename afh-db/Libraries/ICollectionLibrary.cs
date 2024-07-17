@@ -1,4 +1,5 @@
 using afh_db.Models;
+using afh_shared.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace afh_db.Libraries;
@@ -8,7 +9,7 @@ public interface ICollectionLibrary
     Task<List<Collection>> GetCollectionsList();
     Task<Collection?> GetCollectionById(int id);
     Task AddCollection(Collection collection);
-    Task EditCollection(Collection collection);
+    Task EditCollection(Collection existingCollection, EditCollectionDto editedCollection);
     Task DeleteCollection(Collection collection);
 }
 
@@ -44,11 +45,46 @@ public class CollectionLibrary : ICollectionLibrary
         await _context.SaveChangesAsync();
     }
 
-    public async Task EditCollection(Collection collection)
+  public async Task EditCollection(Collection existingCollection, EditCollectionDto editedCollection)
+{
+    // Update scalar properties
+    existingCollection.Name = editedCollection.Name ?? existingCollection.Name;
+    existingCollection.Description = editedCollection.Description ?? existingCollection.Description;
+    
+    var existingMovieIds = existingCollection.CollectionMovies.Select(m => m.MovieID).ToList();
+    var newMovieIds = editedCollection.CollectionMovies.Select(m => m.MovieID).ToList();
+
+    // Remove movies that are no longer in the collection
+    var moviesToRemove = existingCollection.CollectionMovies.Where(m => !newMovieIds.Contains(m.MovieID)).ToList();
+    foreach (var movie in moviesToRemove)
     {
-        _context.Collections.Update(collection);
+        existingCollection.CollectionMovies.Remove(movie);
+    }
+
+    // Add new movies to the collection
+    var moviesToAdd = newMovieIds.Except(existingMovieIds).ToList();
+    foreach (var movieId in moviesToAdd)
+    {
+        existingCollection.CollectionMovies.Add(new CollectionMovie { MovieID = movieId });
+    }
+
+    _context.Entry(existingCollection).State = EntityState.Modified;
+
+    try
+    {
         await _context.SaveChangesAsync();
     }
+    catch (DbUpdateConcurrencyException)
+    {
+        // Handle concurrency issues
+        throw;
+    }
+    catch (Exception ex)
+    {
+        // Log the exception
+        throw;
+    }
+}
 
     public async Task DeleteCollection(Collection collection)
     {
