@@ -1,8 +1,14 @@
 using System.Runtime.CompilerServices;
+using System.Text;
 using afh_api.Mappings;
+using afh_be.Auth.Data;
+using afh_be.Auth.Models;
 using afh_db;
 using afh_db.Libraries;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 [assembly: InternalsVisibleTo("afh-be.Tests")]
 
@@ -25,6 +31,38 @@ builder.Services.AddDbContext<MovieDBContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllers();
+
+// Add services to the container.
+builder.Services.AddDbContext<AuthDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+builder
+    .Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AuthDbContext>()
+    .AddDefaultTokenProviders();
+
+builder
+    .Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        // Configure JWT Bearer Auth
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            )
+        };
+    });
+
+// Add authorization
+builder.Services.AddAuthorization();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -57,6 +95,8 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 
