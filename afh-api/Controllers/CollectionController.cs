@@ -45,37 +45,49 @@ namespace afh_be.Controllers
         }
 
         [HttpPost("Add")]
-        public async Task AddCollection([FromBody] Collection collection)
+        public async Task<IActionResult> AddCollection([FromBody] AddCollectionDto newCollectionDto)
         {
-            if (collection != null)
+            if (newCollectionDto != null)
             {
-                await _collectionLibrary.AddCollection(collection);
-            }
-            return;
-        }
-
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> EditCollection(
-            [FromBody] Collection updatedCollection,
-            int id
-        )
-        {
-            var existingCollection = await _collectionLibrary.GetCollectionById(id);
-            if (existingCollection == null)
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                await _collectionLibrary.EditCollection(updatedCollection);
+                var collectionDto = _mapper.Map<Collection>(newCollectionDto);
+                await _collectionLibrary.AddCollection(collectionDto);
                 return NoContent();
             }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+            return BadRequest("Collection data is null");
         }
+
+  [HttpPatch("{id}")]
+public async Task<IActionResult> EditCollection(
+    [FromBody] EditCollectionDto updatedCollection,
+    int id
+)
+{
+    var existingCollection = await _collectionLibrary.GetCollectionById(id);
+    if (existingCollection == null)
+    {
+        return NotFound();
+    }
+
+    if (existingCollection.CollectionID != id)
+    {
+        return BadRequest("Collection ID mismatch");
+    }
+
+    try
+    {
+        await _collectionLibrary.EditCollection(existingCollection, updatedCollection);
+        return NoContent();
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        return Conflict("The collection was modified by another process.");
+    }
+    catch (Exception ex)
+    {
+        // Log the exception
+        return StatusCode(500, $"An error occurred while updating the collection: {ex}");
+    }
+}
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Collection>> DeleteCollection(int id)
