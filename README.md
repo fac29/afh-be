@@ -15,7 +15,7 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 -   `DELETE /User/{id}` - Delete a user by id
 -   `POST /User` - Add a user
 
-### Movies: 
+### Movies (Patch doesn't currently work): 
 -   `GET /Movie` - Get all movies
 -   `GET /Movie/{id}` - Retrieve a movie by id
 -   `PATCH /Movie/{id}` - Edit a movie by id
