@@ -6,6 +6,7 @@ using afh_be.Auth.Models;
 using afh_db;
 using afh_db.Libraries;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -68,6 +69,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDataProtection();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -99,6 +102,40 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+app.MapGet(
+    "/username",
+    (HttpContext ctx, IDataProtectionProvider idp) =>
+    {
+        var protector = idp.CreateProtector("auth-cookie");
+
+        var authCookie = ctx.Request.Headers.Cookie.FirstOrDefault(x => x.StartsWith(".Asp"));
+        if (authCookie != null)
+        {
+            var protectedPayload = authCookie.Split("=").Last();
+            var payload = protector.Unprotect(protectedPayload);
+            var parts = payload.Split(":");
+            var key = parts[0];
+            var value = parts[1];
+            return value;
+        }
+        else
+        {
+            return "no cookie";
+        }
+        // return "anton";
+    }
+);
+
+app.MapGet(
+    "/login",
+    (HttpContext ctx, IDataProtectionProvider idp) =>
+    {
+        var protector = idp.CreateProtector("auth-cookie");
+        ctx.Response.Headers["set-cookie"] = $"auth={protector.Protect("usr:anton")}";
+        return "anton, we have sent the cookie";
+    }
+);
 
 app.Run();
 
