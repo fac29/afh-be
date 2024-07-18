@@ -28,3 +28,8 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 -   `PATCH /Collection/{id}` - Edit a collection by id
 -   `DELETE /Collection/{id}` - Delete a collection by id
 -   `POST /Collection` - Add a collection
+
+### Testing: 
+
+1. cd into afh-be.Tests
+2. Run ```dotnet test```
