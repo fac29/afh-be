@@ -33,3 +33,7 @@ Back-end repo for movies library project by Alex, Fearghal and Halimah
 
 1. cd into afh-be.Tests
 2. Run ```dotnet test```
+
+## Schema
+
+![Movies Library (2)](https://github.com/user-attachments/assets/b67cf89e-b29c-48a4-a04b-59ade87e7704)
